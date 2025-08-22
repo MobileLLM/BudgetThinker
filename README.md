@@ -13,7 +13,9 @@
 This repository contains the code implementation for the paper : BudgetThinker: Empowering Budget-aware LLM Reasoning with Control Tokens.
 
 Our training data can be downloaded from the following links:
+
 SFT-Data：
+
 RL-Data：
 
 The trained model (based on DeepSeek-R1-Distill-Qwen-1.5B) can be obtained from the following link:
