@@ -25,7 +25,7 @@ The trained model (based on DeepSeek-R1-Distill-Qwen-1.5B) can be obtained from 
 
 ### SFT-Stage：LLaMA-Factory
 
-```
+```bash
 git clone git@github.com:hiyouga/LLaMA-Factory.git
 ```
 
@@ -389,7 +389,7 @@ After downloading the SFT-Data, register it in the `dataset_info.json` file of L
 ## Training
 
 ### SFT Training
-```
+```bash
 cd ./LLaMA-Factory
 ```
 
@@ -398,7 +398,7 @@ For detailed scripts, refer to `LLaMA-Factory/examples/deepseed_train.sh`.
 
 
 ### RL Training
-```
+```bash
 cd ./easyr1
 ```
 
