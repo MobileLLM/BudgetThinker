@@ -14,12 +14,11 @@ This repository contains the code implementation for the paper : BudgetThinker: 
 
 Our training data can be downloaded from the following links:
 
-SFT-Data：
-
-RL-Data：
+[Dataset-BudgetThinker](https://huggingface.co/datasets/Xin-Rui/Dataset-BudgetThinker/tree/main)
 
 The trained model (based on DeepSeek-R1-Distill-Qwen-1.5B) can be obtained from the following link:
 
+[BudgetThinker-1.5b](https://huggingface.co/Xin-Rui/BudgetThinker-1.5b/tree/main)
 
 ## Install
 
@@ -382,9 +381,7 @@ Modify the ori_model_path and new_model_path variables in `Preparation/add_speci
 
 Our training data can be downloaded from the following links:
 
-SFT-Data：
-
-RL-Data：
+[Dataset-BudgetThinker](https://huggingface.co/datasets/Xin-Rui/Dataset-BudgetThinker/tree/main)
 
 After downloading the SFT-Data, register it in the `dataset_info.json` file of LLaMA-Factory with the registration name `8ratio_SFT_below10000`.
 
