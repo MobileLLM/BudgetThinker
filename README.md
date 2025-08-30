@@ -1,28 +1,29 @@
-# BudgetThinker: Empowering Budget-aware LLM Reasoning with Control Tokens
+# BudgetThinker: Empowering Budget-aware LLM Reasoning with Control Tokens 🚀
 
 ## Table of Contents
 
-- [About](#About)
-- [Install](#Install)
-- [Preparation](#preparation)
-- [Training](#training)
-- [Evaluation](#evaluation)
-
+- [About](#About) 📝
+- [Install](#Install) ⚙️
+- [Preparation](#preparation) 📚
+- [Training](#training) 🏋️‍♂️
+- [Evaluation](#evaluation) 📊
 
 ## About
-This repository contains the code implementation for the paper : BudgetThinker: Empowering Budget-aware LLM Reasoning with Control Tokens.
+This repository contains the code implementation for the paper : 
+
+[BudgetThinker: Empowering Budget-aware LLM Reasoning with Control Tokens](https://www.arxiv.org/abs/2508.17196 ) 🚀
 
 Our training data can be downloaded from the following links:
 
-[Dataset-BudgetThinker](https://huggingface.co/datasets/Xin-Rui/Dataset-BudgetThinker/tree/main)
+[Dataset-BudgetThinker](https://huggingface.co/datasets/Xin-Rui/Dataset-BudgetThinker/tree/main ) 📥
 
 The trained model (based on DeepSeek-R1-Distill-Qwen-1.5B) can be obtained from the following link:
 
-[BudgetThinker-1.5b](https://huggingface.co/Xin-Rui/BudgetThinker-1.5b/tree/main)
+[BudgetThinker-1.5b](https://huggingface.co/Xin-Rui/BudgetThinker-1.5b/tree/main ) 📦
 
 ## Install
 
-### Clone This Repo
+### Clone This Repo 📋
 
 ### SFT-Stage：LLaMA-Factory
 
@@ -30,9 +31,9 @@ The trained model (based on DeepSeek-R1-Distill-Qwen-1.5B) can be obtained from 
 git clone git@github.com:hiyouga/LLaMA-Factory.git
 ```
 
-After cloning the repository, follow the instructions in the [Installation Guide](https://llamafactory.readthedocs.io/zh-cn/latest/getting_started/installation.html) to configure the necessary dependencies.
+After cloning the repository, follow the instructions in the [Installation Guide](https://llamafactory.readthedocs.io/zh-cn/latest/getting_started/installation.html ) to configure the necessary dependencies. 🔧
 
-### Modify Environments' Code
+### Modify Environments' Code 🛠️
 
 You need to modify a piece of code in the transformers library within the environment corresponding to the LLaMA-Factory project. Locate the source code of the transformers library in your environment and replace the loss/loss_utils.py file. For example, using my path:
 
@@ -55,21 +56,19 @@ export special_token_loss=Tn # Set the loss weight for special tokens, where n i
 # For example: export special_token_loss=T10, which sets the loss weight for special tokens to 10
 ```
 
-### RL-Stage：EasyR1
+### RL-Stage：EasyR1 🎯
 
-The modified project code is included in the `./easyr1` directory. For environment configuration, please refer to the [EasyR1](https://github.com/hiyouga/EasyR1) documentation.
+The modified project code is included in the `./easyr1` directory. For environment configuration, please refer to the [EasyR1](https://github.com/hiyouga/EasyR1 ) documentation.
 
+### Eval-Stage: Qwen2.5-Math 📈
 
-### Eval-Stage: Qwen2.5-Math
+The modified project code is included in the `./evaluation` directory. For environment configuration, please refer to the [Qwen2.5-Math](https://github.com/QwenLM/Qwen2.5-Math ) documentation.
 
-The modified project code is included in the `./evaluation` directory. For environment configuration, please refer to the [Qwen2.5-Math](https://github.com/QwenLM/Qwen2.5-Math) documentation.
-
-
-### Modify Environments' Code
+### Modify Environments' Code 🛠️
 
 It is necessary to modify the code in the environments corresponding to the `./easyr1` and `./evaluation` directories. We need to modify the source code of vllm to support the insertion of special tokens during inference:
 
-#### Method 1: Direct Replacement (Limited to vllm Version 0.7.3)
+#### Method 1: Direct Replacement (Limited to vllm Version 0.7.3) 🔁
 Locate the `worker/model_runner.py` file in the vllm library and replace it:
 
 ```bash
@@ -84,7 +83,7 @@ to_replace/vllm/worker/model_runner.py
 
 > Note: The version of the vllm library corresponding to this code is 0.7.3.
 
-#### Methods 2: Direct Modification
+#### Methods 2: Direct Modification 📝
 
 Focus on the execute_model function in the `...vllm/worker/model_runner.py` file. The original version is as follows:
 
@@ -362,32 +361,53 @@ Modify the code as follows:
         return [output]
 ```
 
-## Preparation
 
-### Model Preparation
+## Preparation 📖
+
+### Model Preparation 🛠️
 
 ```bash
 cd ./Preparation
 ```
 
-Modify the ori_model_path and new_model_path variables in `Preparation/add_special_tokens.py` to embed special tokens into the new model.
+Modify the `ori_model_path` and `new_model_path` variables in `Preparation/add_special_tokens.py` to embed special tokens into the new model.
 
 ```python
     ori_model_path = '/path/to/your/ori/model'
     new_model_path = '/path/to/your/new/model'
 ```
 
-### Data Preparation
+### Data Preparation 📥
 
 Our training data can be downloaded from the following links:
 
-[Dataset-BudgetThinker](https://huggingface.co/datasets/Xin-Rui/Dataset-BudgetThinker/tree/main)
+[Dataset-BudgetThinker](https://huggingface.co/datasets/Xin-Rui/Dataset-BudgetThinker/tree/main )
 
 After downloading the SFT-Data, register it in the `dataset_info.json` file of LLaMA-Factory with the registration name `8ratio_SFT_below10000`.
 
-## Training
+#### Data Format
+
+**NOTICE!** ⚠️
+
+The data format must remain the same during the SFT and RL stages.
+
+The format of data must strictly follow the following example (especially the prompt format in 'prompt', it's must be the same as ):
+```json
+"prompt":"Return your final response within \\boxed{}. 
+xxxxxx
+\n(Complete thinking within 1600 tokens or fewer, 7 special tokens ( \n<remaining>7/8</remaining>\n , \n<remaining>6/8</remaining>\n , \n<remaining>5/8</remaining>\n , \n<remaining>4/8</remaining>\n , \n<remaining>3/8</remaining>\n , \n<remaining>2/8</remaining>\n , \n<remaining>1/8</remaining>\n ) will split the thinking process into 8 parts.)"
+
+"answer":"<think>
+xxxxx
+</think>\n**Final Answer**\\boxed{}"
+```
+
+The data format is the same as the one used in the paper. For more details, please refer to the paper.
+
+## Training 🏋️‍♂️
 
 ### SFT Training
+
 ```bash
 cd ./LLaMA-Factory
 ```
@@ -395,14 +415,13 @@ cd ./LLaMA-Factory
 Use deepseed to accelerate the training process.
 For detailed scripts, refer to `LLaMA-Factory/examples/deepseed_train.sh`.
 
-
 ### RL Training
+
 ```bash
 cd ./easyr1
 ```
 
 After configuring the `model_path` parameter in the `easyr1/examples/8ratio_v1.sh` and `easyr1/examples/8ratio_v1.yaml` files, you can run the following command:
-
 
 ```bash
 bash /mnt/lyc/wuxinrui/BudgetThinker/easyr1/examples/8ratio_v1.sh
@@ -415,19 +434,15 @@ The script involves three environment variables: stage, steady, and remaining.
 
     Stage 1 represents normal output of the chain of thought.
 
-    Stage 2 represents manually interrupting the output when the chain of thought reaches the budget, and 
-manually inserting `</think>\n**Final Answer**` as the ending prompt at the current position, followed by another output.
+    Stage 2 represents manually interrupting the output when the chain of thought reaches the budget, and manually inserting `</think>\n**Final Answer**` as the ending prompt at the current position, followed by another output.
 
-- steady: Represents the name of the current training session. For example, with "8ratio_v1", it is best to modify all occurrences of this string in both the .sh and .yaml files. This will affect the output location of checkpoints, the output location of logs, and the budget settings under the current training configuration. For more details, refer to easyr1/verl/utils/dataset.py.
+- steady: Represents the name of the current training session. For example, with "8ratio_v1", it is best to modify all occurrences of this string in both the .sh and .yaml files. This will affect the output location of checkpoints, the output location of logs, and the budget settings under the current training configuration. For more details, refer to `easyr1/verl/utils/dataset.py`.
 
 - remaining: The vllm inference mode. Setting it to 8ratio uses the default method (splitting the chain of thought into 8 parts). If set to default, vllm will perform normal inference without adding any special tokens.
 
-
-
-## Evaluation
+## Evaluation 📊
 
 First, modify the `MODEL_NAME_OR_PATH` parameter in the `evaluation/remaining_eval/Eval.sh` script, and then run the following command:
-
 
 ```bash
 cd ./evaluation
@@ -443,4 +458,4 @@ The following parameters/environment variables need to be set in the script:
 
 - tip: The template for the prompt before the question. If using the 8ratio inference mode, the tip must also be set to 8ratio. Additionally, tip can be set to prompt_v1 or prompt_v2, which are two different natural language prompts.
 
-- MODEL_NAME_OR_PATH: The path to the model. It is recommended to use a recognizable model name as the second-to-last folder name in the path, as the code will read this name as the current evaluation model and store logs in the corresponding folder. For example: /path1/path2/Model_Name/models
+- MODEL_NAME_OR_PATH: The path to the model. It is recommended to use a recognizable model name as the second-to-last folder name in the path, as the code will read this name as the current evaluation model and store logs in the corresponding folder. For example: `/path1/path2/Model_Name/models`
