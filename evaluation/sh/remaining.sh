@@ -14,7 +14,6 @@ NUM_TEST_SAMPLE=-1
 # English open datasets
 export DATA_NAME=$DATA_NAME
 
-# 定义 max_tokens_per_call 的取值范围
 for tokens in 100 250 500 1000 2000 4000 6000 10000
 # for tokens in 1000 2000 4000 6000 10000 30000 
 do

@@ -1,8 +1,8 @@
 from transformers import AutoTokenizer
 from transformers import AutoModelForCausalLM
 import json
-# model = AutoModelForCausalLM.from_pretrained("/data/sunyi/hf_cache/hub/models--deepseek-ai--DeepSeek-R1-Distill-Qwen-7B/snapshots/6602cadec947dbb53e64f3d8d6425320b2197247")
-# tokenizer = AutoTokenizer.from_pretrained("/data/sunyi/hf_cache/hub/models--deepseek-ai--DeepSeek-R1-Distill-Qwen-7B/snapshots/6602cadec947dbb53e64f3d8d6425320b2197247")
+# model = AutoModelForCausalLM.from_pretrained("/path/to/your/local/model")
+# tokenizer = AutoTokenizer.from_pretrained("/path/to/your/local/model")
 
 
 

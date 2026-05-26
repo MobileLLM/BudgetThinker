@@ -4,7 +4,7 @@ import json
 
 def get_answer_prompt():
     answer_prompt_data = []
-    with open("/mnt/lyc/wuxinrui/Qwen2.5-Math/evaluation/data/math500/test.jsonl", "r") as f:
+    with open("/path/to/your/evaluation/data/math500/test.jsonl", "r") as f:
         for line in f:
             data = json.loads(line)
             answer = data["answer"]
@@ -15,7 +15,7 @@ def get_answer_prompt():
             data['problem'] = problem+answer_prompt
             answer_prompt_data.append(data)
 
-    with open("/mnt/lyc/wuxinrui/Qwen2.5-Math/evaluation/data/math500_answer_prompt/test.jsonl", "w") as f:
+    with open("/path/to/your/evaluation/data/math500_answer_prompt/test.jsonl", "w") as f:
         for data in answer_prompt_data:
             f.write(json.dumps(data, ensure_ascii=False) + "\n")
 

@@ -227,10 +227,13 @@ def reorganize_folders(root_dir: str) -> None:
 if __name__ == "__main__":
     import argparse
     parser = argparse.ArgumentParser()
-    parser.add_argument("--local_dir", required=False, type=str, help="The path for your saved model")
+    parser.add_argument("--local_dir", required=True, type=str, help="The path for your saved actor model directory")
+    parser.add_argument("--parent_dir", default=None, type=str,
+                        help="The parent checkpoint directory to reorganize. Defaults to the parent of local_dir.")
     parser.add_argument("--hf_upload_path", default=None, type=str, 
                        help="The path of the huggingface repo to upload")
     args = parser.parse_args()
-    
-    merge_and_save_model("/mnt/lyc/wuxinrui/R1_training/training/TCM4_addthinkprunedata/step_17_reward_0.668/actor")
-    reorganize_folders("/mnt/lyc/wuxinrui/R1_training/training/TCM4_addthinkprunedata/step_17_reward_0.668")
+
+    merge_and_save_model(args.local_dir, args.hf_upload_path)
+    parent_dir = args.parent_dir or str(Path(args.local_dir).parent)
+    reorganize_folders(parent_dir)

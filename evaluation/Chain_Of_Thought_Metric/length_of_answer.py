@@ -5,13 +5,13 @@ import json
 import matplotlib.pyplot as plt
 
 # 父文件夹路径
-parent_folder = "/mnt/lyc/wuxinrui/Qwen2.5-Math/evaluation"
+parent_folder = "/path/to/your/evaluation"
 pattern = re.compile(r"MODEL-.*-TIP-.*-STAGE-add-DATA-.*")
 
 entry_list = []
 setting_names = []
 # tokenizer = AutoTokenizer.from_pretrained("Qwen/Qwen1.5-1.8B", trust_remote_code=True)  # 使用合适的tokenizer
-tokenizer = AutoTokenizer.from_pretrained("/mnt/lyc/wuxinrui/LLaMA-Factory/TCMv4_8ratio/1_5B_TCMv4_8ratio_models/models", trust_remote_code=True)
+tokenizer = AutoTokenizer.from_pretrained("/path/to/your/tokenizer_or_model", trust_remote_code=True)
 
 def calculate_token_length(text):
     """计算文本的token长度"""

@@ -41,7 +41,7 @@ class CheckpointHandler(FileSystemEventHandler):
                     print(f"Skipped specific checkpoint: {checkpoint}")
 
 def main():
-    folder_path = '/data/wuxinrui/easyr1_checkpoints/1_5B_TCMv2_long_short_regular_budget_modified'  # Change this to your path
+    folder_path = '/path/to/your/easyr1_checkpoints'  # Change this to your checkpoint path
     event_handler = CheckpointHandler(folder_path)
     observer = Observer()
     observer.schedule(event_handler, folder_path, recursive=False)

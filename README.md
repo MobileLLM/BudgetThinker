@@ -35,7 +35,7 @@ After cloning the repository, follow the instructions in the [Installation Guide
 
 ### Modify Environments' Code 🛠️
 
-You need to modify a piece of code in the transformers library within the environment corresponding to the LLaMA-Factory project. Locate the source code of the transformers library in your environment and replace the loss/loss_utils.py file. For example, using my path:
+You need to modify a piece of code in the transformers library within the environment corresponding to the LLaMA-Factory project. Locate the source code of the transformers library in your environment and replace the loss/loss_utils.py file. For example:
 
 ```bash
 /home/user/anaconda3/envs/llama-fac/lib/python3.11/site-packages/transformers/loss/loss_utils.py
@@ -424,7 +424,7 @@ cd ./easyr1
 After configuring the `model_path` parameter in the `easyr1/examples/8ratio_v1.sh` and `easyr1/examples/8ratio_v1.yaml` files, you can run the following command:
 
 ```bash
-bash /mnt/lyc/wuxinrui/BudgetThinker/easyr1/examples/8ratio_v1.sh
+bash /path/to/BudgetThinker/easyr1/examples/8ratio_v1.sh
 ```
 
 #### Parameter Introduction
